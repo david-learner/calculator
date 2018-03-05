@@ -3,48 +3,71 @@ package com.hard.learner;
 import java.util.Scanner;
 
 public class Calculator {
+	static int getFirstValue(Scanner scanner) {
+		// TODO 첫 번째 값을 입력 받아 반환
+		System.out.println("첫 번째 값을 입력하세요.");
+		int firstValue = scanner.nextInt();
+		System.out.println(firstValue);
+		return firstValue;
+	}
+
+	static int getSecondValue(Scanner scanner) {
+		// TODO 두 번째 값을 입력 받아 반환
+		System.out.println("두 번째 값을 입력하세요.");
+		int secondValue = scanner.nextInt();
+		System.out.println(secondValue);
+		return secondValue;
+	}
+
+	static String getSymbol(Scanner scanner) {
+		// TODO 첫 번째 값을 입력 받아 반환
+		System.out.println("연산자를 입력하세요.");
+		String symbol = scanner.next();
+		System.out.println(symbol);
+		return symbol;
+	}
+
+	static int calculate(String symbol, int first, int second) {
+		// TODO 사칙 연산을 계산해 결과 값을 반환
+		// 마지막에 else만 써서 처리한 게 별로인 것 같다.
+		if (("+").equals(symbol)) {
+			return first + second;
+		} else if (("-").equals(symbol)) {
+			return first - second;
+		} else if (("*").equals(symbol)) {
+			return first * second;
+		} else if(("/").equals(symbol)){
+			return first / second;
+		} else {
+			return 0;
+		}
+	}
+
+	static void print(int result) {
+		// TODO 실행 결과를 출력
+		System.out.println("합계 : " + result);
+	}
+
 	public static void main(String[] args) {
 		Scanner scanner = new Scanner(System.in);
 
-		int first = 0;
-		int second = 0;
-		String operator = null;
-		int result = 0;
-
-		System.out.println("연산에 필요한 첫 번째 숫자를 입력해주세요.");
-		first = scanner.nextInt();
+		int result = getFirstValue(scanner);
 
 		while (true) {
-			System.out.println("원하는 연산 기호를 입력해 주세요.");
-			operator = scanner.next();
+			String symbol = getSymbol(scanner);
 
-			if ("quit".equals(operator)) {
-				System.out.println("종료되었습니다.");
+			if ("quit".equals(symbol)) {
+				print(result);
 				break;
 			}
 
-			System.out.println("연산에 필요한 두 번째 숫자를 입력해주세요.");
-			second = scanner.nextInt();
+			int second = getSecondValue(scanner);
 
-			result = calculate(first, second, operator);
-			first = result;
+			result = calculate(symbol, result, second);
 			
-			System.out.println("합계 : " + result);
+			print(result);
 		}
 
 		scanner.close();
-	}
-
-	// default 연산자는 나누기이다.
-	public static int calculate(int first, int second, String operator) {
-		if (operator.equals("+")) {
-			return first + second;
-		} else if (operator.equals("-")) {
-			return first - second;
-		} else if (operator.equals("*")) {
-			return first * second;
-		} else {
-			return first / second;
-		}
 	}
 }
